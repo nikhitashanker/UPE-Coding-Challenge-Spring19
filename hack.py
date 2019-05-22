@@ -2,12 +2,9 @@ import requests
 
 maze_tracker = []
 
-#first i had right left down up
-#def is_valid(dir):
-	
-	#if
+
 def getcurrLoc(url):
-	resp = requests.get(url) # get maze information
+	resp = requests.get(url) 
 	body = resp.json()
 	print(body)
 
@@ -17,15 +14,11 @@ def solve_maze(x, y, url, last_move):
 	maze_tracker[x][y] = 1
 
 	headers = {'Content-type': 'application/x-www-form-urlencoded'}
-	
 
 	if (last_move != 'up'):
-
-		resp_down = requests.post(url, data = {'action':'down'}, headers=headers) # start new session	#solve_maze()
+		resp_down = requests.post(url, data = {'action':'down'}, headers=headers) 
 		body_down = resp_down.json()
 		result_down = body_down['result']
-
-
 		if (result_down == 1):
 			return True
 		if (result_down == 0): 
@@ -34,7 +27,7 @@ def solve_maze(x, y, url, last_move):
 			else:
 				requests.post(url, data = {'action':'up'}, headers=headers)
 	if (last_move != 'left'):
-		resp_right = requests.post(url, data = {'action':'right'}, headers=headers) # start new session	#solve_maze()
+		resp_right = requests.post(url, data = {'action':'right'}, headers=headers) 
 		body_right = resp_right.json()
 		result_right = body_right['result']
 
@@ -46,8 +39,7 @@ def solve_maze(x, y, url, last_move):
 			else:
 				requests.post(url, data = {'action':'left'}, headers=headers)
 	if (last_move != 'down'):
-		resp_up = requests.post(url, data = {'action':'up'}, headers=headers) # start new session	#solve_maze()
-		#getcurrLoc(url)
+		resp_up = requests.post(url, data = {'action':'up'}, headers=headers) 
 		body_up = resp_up.json()
 		result_up = body_up['result']
 
@@ -59,8 +51,7 @@ def solve_maze(x, y, url, last_move):
 			else:
 				requests.post(url, data = {'action':'down'}, headers=headers)
 	if (last_move != 'right'):
-		resp_left = requests.post(url, data = {'action':'left'}, headers=headers) # start new session	#solve_maze()
-		#getcurrLoc(url)
+		resp_left = requests.post(url, data = {'action':'left'}, headers=headers) 
 		body_left = resp_left.json()
 		result_left = body_left['result']
 
@@ -93,8 +84,6 @@ rows = body['size'][0]
 cols = body['size'][1]
 
 for row in range(rows): maze_tracker += [[0]*cols]
-
-
 
 solve_maze(x, y, full_url, '')
 getcurrLoc(full_url)
